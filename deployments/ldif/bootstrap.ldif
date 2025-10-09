@@ -1,0 +1,33 @@
+dn: ou=People,dc=example,dc=org
+objectClass: organizationalUnit
+ou: People
+
+dn: ou=Groups,dc=example,dc=org
+objectClass: organizationalUnit
+ou: Groups
+
+dn: uid=jdoe,ou=People,dc=example,dc=org
+objectClass: inetOrgPerson
+cn: John Doe
+sn: Doe
+givenName: John
+uid: jdoe
+mail: jdoe@example.org
+userPassword: Password1
+carLicense: true
+
+dn: uid=alice,ou=People,dc=example,dc=org
+objectClass: inetOrgPerson
+cn: Alice Anderson
+sn: Anderson
+givenName: Alice
+uid: alice
+mail: alice@example.org
+userPassword: Password1
+carLicense: true
+
+dn: cn=developers,ou=Groups,dc=example,dc=org
+objectClass: groupOfNames
+cn: developers
+member: uid=jdoe,ou=People,dc=example,dc=org
+member: uid=alice,ou=People,dc=example,dc=org

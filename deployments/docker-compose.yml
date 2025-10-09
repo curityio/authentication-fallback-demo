@@ -1,0 +1,78 @@
+services:
+
+  #
+  # The Curity Identity Server. Starting the custom built image
+  #
+  curity-idsvr:
+    image: custom/idsvr:1.0
+    hostname: idsvr
+    ports:
+      - 6749:6749
+      - 8443:8443
+    depends_on:
+      - curity-data
+      - ldap
+    volumes:
+      - ../../license.json:/opt/idsvr/etc/init/license/license.json
+      - ./idsvr/config-backup.xml:/opt/idsvr/etc/init/config.xml
+    environment:
+      ADMIN: 'true'
+      LOGGING_LEVEL: 'DEBUG'
+      PASSWORD: 'Password1'
+      # IDSVR_BASE_URL: ${IDSVR_BASE_URL} ##Defaults to https://localhost:8443 if not set but can be overriden by defining in .env
+      OIDC_CONFIGURATION_URL: ${OIDC_CONFIGURATION_URL}
+      OIDC_CLIENT_ID: ${OIDC_CLIENT_ID}
+      OIDC_CLIENT_SECRET: ${OIDC_CLIENT_SECRET}
+
+  #
+  # OpenLDAP holding user data for fallback authentication
+  #
+  ldap:
+    image: osixia/openldap:1.5.0
+    container_name: curity-ldap
+    hostname: ldap
+    environment:
+      LDAP_ORGANISATION: "Example Org"
+      LDAP_DOMAIN: "example.org"
+      LDAP_ADMIN_PASSWORD: admin
+      LDAP_SEED_INTERNAL_LDIF_PATH: "/ldif"
+    ports:
+      - "389:389"
+      - "636:636"
+    volumes:
+      - ldap-data:/var/lib/ldap
+      - ldap-config:/etc/ldap/slapd.d
+      - ./ldif:/ldif
+
+  #
+  # Admin UI for LDAP, not strated by default. Uncomment to start if needed.
+  #
+  # phpldapadmin:
+  #   image: osixia/phpldapadmin:0.9.0
+  #   container_name: phpldapadmin
+  #   environment:
+  #     PHPLDAPADMIN_LDAP_HOSTS: ldap
+  #     PHPLDAPADMIN_HTTPS: "false" 
+  #   ports:
+  #     - "8080:80"
+  #   depends_on:
+  #     - ldap
+
+  #
+  # The SQL database used by the Curity Identity Server
+  #
+  curity-data:
+    image: postgres:latest
+    hostname: dbserver
+    volumes:
+      - ./idsvr/data-backup.sql:/docker-entrypoint-initdb.d/data-backup.sql
+    # ports:
+    #   - "5432:5432"     #Uncomment if access to DB is needed outside of Docker
+    environment:
+      POSTGRES_USER: 'postgres'
+      POSTGRES_PASSWORD: 'Password1'
+      POSTGRES_DB: 'idsvr'
+
+volumes:
+  ldap-data:
+  ldap-config:
