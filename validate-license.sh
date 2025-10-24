@@ -37,14 +37,3 @@ if [ "$FEATURE" == '' ]; then
   echo 'The license.json file does not include the applications feature'
   exit 1
 fi
-
-#
-# For Curity deployments, check for the financial grade package
-#
-if [ "$DEPLOYMENT" == 'curity' ]; then
-  FEATURE=$(echo $LICENSE_PAYLOAD | jq -r '.Features[]  | select(.feature == "financial-grade")')
-  if [ "$FEATURE" == '' ]; then
-    echo 'The license.json file does not include the financial-grade feature'
-    exit 1
-  fi
-fi
