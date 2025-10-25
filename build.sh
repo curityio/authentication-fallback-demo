@@ -1,8 +1,7 @@
 #!/bin/bash
 
 #############################################################################################################
-# Builds a custom container of the Curity Identity Server that includes the service-checker 
-# authentication action plugin.
+# Builds a custom container of the Curity Identity Server that includes the service-checker authentication action plugin.
 #############################################################################################################
 
 #
