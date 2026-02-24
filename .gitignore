@@ -1,0 +1,6 @@
+.DS_Store
+license.json
+dist
+resources
+service-status-checker
+.env
