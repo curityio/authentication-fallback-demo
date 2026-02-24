@@ -18,14 +18,14 @@ The repository also provides a deploy script that:
 The following minimal requirements are needed to run the demo environment:
 
 - Docker Desktop
-- A valid Curity Identity Server license
+- A valid Curity Identity Server license (that allows use of the [plugin SDK](https://curity.io/docs/identity-server/developer-guide/plugins/))
 
 ## Building and running the demo
 
 ### Environment variables
 Start by setting the appropriate environment variables by running:
 ```bash
-cp deployments/.env.examples deployments/.env
+cp deployments/.env.example deployments/.env
 ```
 
 Then edit `deployments/.env` and set:
@@ -42,6 +42,8 @@ OpenLDAP is used for the fallback authenticator. E.g. when the configured OIDC A
 In a production environment this source might be a replica of the source used by the OIDC Authenticator. As an example, the OIDC Authenticator could be federating to Entra and the fallback option could be a local Active Directory instance that is synchronized with Entra.
 
 ### Build and deploy the demo
+First make sure a valid license for the Curity Identity Server is placed in the root of this project and that it is named `license.json`.
+
 Build the demo by simply running `./build.sh`.
 
 Next deploy the demo by running `./deploy.sh`. This starts the needed docker containers. 
@@ -67,7 +69,7 @@ There are several ways to trigger the fallback but one easy way of doing so is t
 
 ![Service Status Checker Config](/docs/service-status-checker-config.jpg)
 
-Run an OAuth Code Flow again. The service-status-checker authentication action will fail the check of the URL and set the attribute `serviceIsUp=false`. This in its turn will invoke the HTML Form Authenticator instead of the OIDC Authenticator. Authenticate using an available LDAP account.
+Run an OAuth Code Flow again. The service-status-checker authentication action will fail the check of the URL and set the attribute `serviceIsUp=false`. This in its turn will invoke the HTML Form Authenticator instead of the OIDC Authenticator. Authenticate using an available LDAP account. For example `alice / Password1`. The available accounts are defined in [bootstrap.ldif](./deployments/ldif/bootstrap.ldif).
 
 ##  Teardown
 To tear down the environment run `./teardown.sh`. This will remove all the resources used in this demo.

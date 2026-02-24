@@ -13,13 +13,13 @@ services:
       - curity-data
       - ldap
     volumes:
-      - ../../license.json:/opt/idsvr/etc/init/license/license.json
+      - ../license.json:/opt/idsvr/etc/init/license/license.json
       - ./idsvr/config-backup.xml:/opt/idsvr/etc/init/config.xml
     environment:
       ADMIN: 'true'
-      LOGGING_LEVEL: 'DEBUG'
+      # LOGGING_LEVEL: 'DEBUG' //Uncomment to enable debug logging
       PASSWORD: 'Password1'
-      # IDSVR_BASE_URL: ${IDSVR_BASE_URL} ##Defaults to https://localhost:8443 if not set but can be overriden by defining in .env
+      # IDSVR_BASE_URL: ${IDSVR_BASE_URL} //Defaults to https://localhost:8443  Uncomment to use environment variable from .env
       OIDC_CONFIGURATION_URL: ${OIDC_CONFIGURATION_URL}
       OIDC_CLIENT_ID: ${OIDC_CLIENT_ID}
       OIDC_CLIENT_SECRET: ${OIDC_CLIENT_SECRET}
@@ -45,7 +45,7 @@ services:
       - ./ldif:/ldif
 
   #
-  # Admin UI for LDAP, not strated by default. Uncomment to start if needed.
+  # Admin UI for LDAP, not started by default. Uncomment to start if needed.
   #
   # phpldapadmin:
   #   image: osixia/phpldapadmin:0.9.0

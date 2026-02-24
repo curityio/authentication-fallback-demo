@@ -87,7 +87,7 @@
               </multi-factor-condition>
             </authentication-action>
             <authentication-action>
-              <id>dbug</id>
+              <id>debug</id>
               <debug-attribute xmlns="https://curity.se/ns/ext-conf/debug-attribute"/>
             </authentication-action>
             <authentication-action>
@@ -104,7 +104,7 @@
               </service-status-checker>
             </authentication-action>
             <authentication-action>
-              <id>switch</id>
+              <id>validate-status</id>
               <switch xmlns="https://curity.se/ns/ext-conf/switch">
                 <case>
                   <name>oidc-up</name>
@@ -112,7 +112,7 @@
                   <action>auth-with-oidc</action>
                 </case>
                 <case>
-                  <name>iidc-down</name>
+                  <name>oidc-down</name>
                   <condition-script>YXR0cmlidXRlcy5hY3Rpb24uc2VydmljZUlzVXAgPT0gZmFsc2U=</condition-script>
                   <action>auth-with-ldap</action>
                 </case>
@@ -145,11 +145,8 @@
               <id>username</id>
               <authentication-actions>
                 <login>service-status-checker</login>
-                <login>switch</login>
-                <login>dbug</login>
-                <sso>service-status-checker</sso>
-                <sso>switch</sso>
-                <sso>dbug</sso>
+                <login>validate-status</login>
+                <login>debug</login>
               </authentication-actions>
               <sso-expiration-time>0</sso-expiration-time>
               <username xmlns="https://curity.se/ns/ext-conf/username">
