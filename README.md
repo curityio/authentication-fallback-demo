@@ -1,4 +1,8 @@
 # Authentication Fallback Demo
+
+[![Quality](https://img.shields.io/badge/quality-demo-red)](https://curity.io/resources/code-examples/status/)
+[![Availability](https://img.shields.io/badge/availability-source-blue)](https://curity.io/resources/code-examples/status/)
+
 This repository provides resources to run a demo environment demonstrating authentication fallback using the Curity Identity Server. 
 
 The repository contains a build script that will:
