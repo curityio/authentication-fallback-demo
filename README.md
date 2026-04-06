@@ -80,7 +80,7 @@ To tear down the environment run `./teardown.sh`. This will remove all the resou
 
 ## Further Reading
 
-This article describes the demo in more detail.
+[The Authentication Fallback article](https://curity.io/resources/learn/authentication-fallback/) describes the demo in more detail.
 
 If you want more information about the Curity Identity Server, Identity and Access Management, OAuth or OpenID Connect, then have a look at the [resources](https://curity.io/resources/) section of the [Curity](https://curity.io) website.
 
